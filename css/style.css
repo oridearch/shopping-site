@@ -1,0 +1,58 @@
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-color: #f9f8f6;
+}
+
+header {
+  margin: 0 5px;
+  padding: 0 5px;
+}
+@media (min-width: 768px) {
+  header {
+    margin: 0 10px;
+    padding: 0 10px;
+  }
+}
+header .sp_menu_toggle, header .top_pc_logo, header .pc_navi, header .pc_fb_icon, header .pc_insta_icon {
+  margin: 0;
+  padding: 0;
+  display: none;
+}
+@media (max-width: 767px) {
+  header .top_logo {
+    text-align: center;
+  }
+  header nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  header nav .sp_navi {
+    order: 3;
+  }
+  header .sp_navi, header .fb_icon, header .insta_icon {
+    margin: 8px 10px;
+  }
+  header .sp_menu_toggle {
+    background: white;
+    width: 180px;
+    border-top: 1px solid #e2ddd4;
+    border-left: 1px solid #e2ddd4;
+    border-right: 1px solid #e2ddd4;
+  }
+  header .sp_menu_toggle li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  header .sp_menu_toggle li a {
+    display: block;
+    padding: 8px;
+    border-bottom: 1px solid #e2ddd4;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

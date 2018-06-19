@@ -1,0 +1,100 @@
+@charset "utf-8";
+
+// fontの基本サイズを16px -> 10px へ
+html {
+	font-size: 62.5%;
+}
+
+// 自動でfont-sizeをrem数値へ変更するための関数
+// @include fontsize(num); で利用
+@mixin fntsz($size: 20) {
+	font-size: $size + px;
+	font-size: ($size / 10) * 1rem;
+}
+
+// 変数宣言
+$ja_font: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", メイリオ, Verdana, "MS Pゴシック", sans-serif;
+
+$bg_color: #f9f8f6;
+// $ac_colorは文字色にも利用する
+$ac_color: #887f69;
+$line_color: #e2ddd4;
+
+$serch_char_color: #b5b5b5;
+$serch_bg_color: #eeeeee;
+
+// スマホユーザーをメインにするため、基本はスマホ向けCSSで設定
+// メディアクエリによるブレイクポイントは
+// PCビュー min-width: 768px（標準的な9.7インチタブレットの短辺）
+// SPビュー max-width: 767px とする
+
+// 全体背景色
+body { background-color: $bg_color; }
+
+// header
+header {
+
+	// header部の外側余白指定
+	margin: 0 5px;
+	padding: 0 5px;
+
+	@media(min-width: 768px) {
+		margin: 0 10px;
+		padding: 0 10px;
+	}
+
+	// 初期display: none; 項目
+	.sp_menu_toggle,.top_pc_logo,.pc_navi,.pc_fb_icon,.pc_insta_icon {
+		margin: 0;
+		padding: 0;
+		display: none;
+	}
+
+	// headerのSPビュー
+	@media(max-width: 767px) {
+		.top_logo {
+			text-align: center;
+		}
+
+		nav {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+
+			.sp_navi { order: 3; }
+		}
+
+		.sp_navi,.fb_icon,.insta_icon {
+			margin: 8px 10px;
+		}
+
+		.sp_menu_toggle {
+			background: white;
+			width: 180px;
+			border-top: 1px solid $line_color;
+			border-left: 1px solid $line_color;
+			border-right: 1px solid $line_color;
+
+			li {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+
+				a {
+					display: block;
+					padding: 8px;
+					border-bottom: 1px solid $line_color;
+				}
+				// .sp_menu_toggle.a  close
+			}
+			//.sp_menu_toggle li  close
+		}
+		// .sp_menu_toggle  close
+	}
+	// max-width:767px  close
+
+}
+// header  close
+
+
+
