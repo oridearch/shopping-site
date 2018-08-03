@@ -35,9 +35,9 @@ $serch_bg_color: #eeeeee;
 
 // スマホユーザーをメインにするため、基本はスマホ向けCSSで設定
 // メディアクエリによるブレークポイントはPC以下のサイズだけにする指定が
-// あったので、
-// PCビュー min-width: 1024px
-// SPビュー max-width: 1023px(SPビューを基本設定にするので、特別な表示形式がない場合は使わない)
+// あったので、デザインカンプより
+// PCビュー min-width: 960px
+// SPビュー max-width: 959px(SPビューを基本設定にするので、特別な表示形式がない場合は使わない)
 
 // 全体背景
 body {
@@ -45,10 +45,12 @@ body {
 	font-family: 'Avenir','Helvetica Neue','Helvetica','Arial','Hiragino Sans','ヒラギノ角ゴシック',YuGothic,'Yu Gothic','メイリオ', Meiryo,'ＭＳ Ｐゴシック','MS PGothic',sans-serif;
 
 	background-color: $bg_color;
-	margin: 20px 0;
+	margin: 20px auto;
+	width: 100%;
 
-	@media(min-width: 1024px) {
-		margin: 10px;
+	@media(min-width: 960px) {
+		margin: 10px auto;
+		width: 960px;
 	}
 }
 
@@ -61,7 +63,7 @@ body {
 .header {
 
 	// headerのSPビュー
-	@media(max-width: 1023px) {
+	@media(max-width: 959px) {
 
 		// 初期display: none; 項目
 		.sp_menu_toggle,.top_pc_logo,.pc_navi,.pc_fb_icon,.pc_insta_icon {
@@ -115,7 +117,7 @@ body {
 		// max-width:1023px  close
 
 	// headerのPCビュー
-	@media(min-width: 1024px) {
+	@media(min-width: 960px) {
 
 		// PCビューのheader下余白
 		margin-bottom: 40px;
@@ -157,14 +159,14 @@ body {
 		// .navi style  close
 
 	}
-	// min-width: 1024px  close
+	// min-width: 960px  close
 }
 // .header  close
 
 .contents {
 
-	// サイドバーのPCビュー min-width:1024px
-	@media(min-width: 1024px) {
+	// サイドバーのPCビュー min-width:960px
+	@media(min-width: 960px) {
 
 		display: flex;
 
@@ -177,7 +179,7 @@ body {
 		.sidebar { width: calc(25% - 20px); }
 
 	}
-	// min-width:1024px style  close
+	// min-width:960px style  close
 
 
 	//アイキャッチ画像カルーセルエリア
@@ -193,8 +195,8 @@ body {
 			padding: 0;
 			margin-right: 10px;
 			border-radius: 0;
-			width: 40px;
-			height: 2.5px;
+			width: 25px;
+			height: 2px;
 			background: #aaaaaa;
 
 			//dot(bar)にマウスを乗せたときの色変更
@@ -212,7 +214,7 @@ body {
 			}
 		}
 
-		@media(min-width: 1024px) { margin: 0; }
+		@media(min-width: 960px) { margin: 0; }
 
 	}
 	// #carousel_area  close
@@ -238,7 +240,7 @@ body {
 
 		img { max-height: 1em; padding-right: 1em; }
 
-		@media(min-width: 1024px) { margin: 0; }
+		@media(min-width: 960px) { margin: 0; }
 
 	}
 
@@ -258,7 +260,7 @@ body {
 	}
 
 	// #image_area PCビュー
-	@media(min-width: 1024px) {
+	@media(min-width: 960px) {
 		#image_area {
 			margin: 10px 0;
 			padding-top: 24.28%;
@@ -456,7 +458,7 @@ body {
 		}
 
 		// #pro_det_area PCビュー
-		@media(min-width: 1024px) {
+		@media(min-width: 960px) {
 
 			margin-top: 10px;
 			padding: 40px 60px 60px;
@@ -564,9 +566,10 @@ body {
 				color: white;
 				background-color: $ac_color1;
 				width: 120px;
-				height: 40px;
+				// height と line-height を等しくすることで、縦中央に文字配置
+				height: 3em;
+				line-height: 3em;
 				text-align: center;
-				line-height: 40px;
 				margin-bottom: 0;
 			}
 		}
@@ -596,7 +599,7 @@ body {
 		}
 
 		//PCビュー
-		@media(min-width: 1024px) {
+		@media(min-width: 960px) {
 			margin: 0;
 
 			.sp_title { display: none; }
@@ -651,7 +654,7 @@ body {
 			}
 
 		}
-		// min-width: 1024px(PCビュー) style  close
+		// min-width: 960px(PCビュー) style  close
 	}
 	// .section style  close
 
@@ -795,7 +798,7 @@ body {
 		// #shop_info style  close
 
 		//SPビュー特有の表示
-		@media(max-width: 1023px) {
+		@media(max-width: 959px) {
 
 			// SPビューのとき、ITEM SEARCHの見出しを非表示
 			#is_head { display: none; }
@@ -830,7 +833,7 @@ body {
 		}
 		//SPビュー style  close
 
-		@media(min-width: 1024px) { margin: 0; }
+		@media(min-width: 960px) { margin: 0; }
 
 	}
 	// .sidebar style  close
@@ -858,7 +861,7 @@ footer {
 		@include fontsz(12);
 
 		//PCビュー
-		@media(min-width: 1024px) { justify-content: flex-end; }
+		@media(min-width: 960px) { justify-content: flex-end; }
 	}
 	// #pagetop style  close
 
@@ -879,7 +882,7 @@ footer {
 	}
 
 	//PCビュー
-	@media(min-width: 1024px) {
+	@media(min-width: 960px) {
 		margin: 0;
 		.sp_foot { display: none; }
 		.pc_foot { display: block; }
