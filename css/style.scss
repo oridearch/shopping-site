@@ -7,7 +7,7 @@ html {
 
 // 自動でfont-sizeをrem数値へ変更するための関数
 // @include fontsize(num); で利用
-@mixin fntsz($size: 20) {
+@mixin fontsz($size: 12) {
 	font-size: $size + px;
 	font-size: ($size / 10) * 1rem;
 }
@@ -15,53 +15,71 @@ html {
 // 変数宣言
 $ja_font: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", メイリオ, Verdana, "MS Pゴシック", sans-serif;
 
+// 背景色
 $bg_color: #f9f8f6;
-// $ac_colorは文字色にも利用する
-$ac_color: #887f69;
-$line_color: #e2ddd4;
+
+// かなり濃いベージュ
+$ac_color1: #887f69;
+
+// 背景色を濃くした感じのベージュ系のグレー
+$ac_color2: #e2ddd4;
+
+// 濃いグレー
+$ac_color3: #b0b0b0;
+
+// 濃い紅
+$sub_color4: #9d1a2d;
 
 $serch_char_color: #b5b5b5;
 $serch_bg_color: #eeeeee;
 
 // スマホユーザーをメインにするため、基本はスマホ向けCSSで設定
-// メディアクエリによるブレイクポイントは
-// PCビュー min-width: 768px（標準的な9.7インチタブレットの短辺）
-// SPビュー max-width: 767px とする
+// メディアクエリによるブレークポイントはPC以下のサイズだけにする指定が
+// あったので、
+// PCビュー min-width: 1024px
+// SPビュー max-width: 1023px(SPビューを基本設定にするので、特別な表示形式がない場合は使わない)
 
-// 全体背景色
-body { background-color: $bg_color; }
+// 全体背景
+body {
+
+	font-family: 'Avenir','Helvetica Neue','Helvetica','Arial','Hiragino Sans','ヒラギノ角ゴシック',YuGothic,'Yu Gothic','メイリオ', Meiryo,'ＭＳ Ｐゴシック','MS PGothic',sans-serif;
+
+	background-color: $bg_color;
+	margin: 20px 0;
+
+	@media(min-width: 1024px) {
+		margin: 10px;
+	}
+}
+
+.containter,header {
+	margin: 0;
+	padding: 0;
+}
 
 // header
-header {
-
-	// header部の外側余白指定
-	margin: 0 5px;
-	padding: 0 5px;
-
-	@media(min-width: 768px) {
-		margin: 0 10px;
-		padding: 0 10px;
-	}
-
-	// 初期display: none; 項目
-	.sp_menu_toggle,.top_pc_logo,.pc_navi,.pc_fb_icon,.pc_insta_icon {
-		margin: 0;
-		padding: 0;
-		display: none;
-	}
+.header {
 
 	// headerのSPビュー
-	@media(max-width: 767px) {
-		.top_logo {
-			text-align: center;
+	@media(max-width: 1023px) {
+
+		// 初期display: none; 項目
+		.sp_menu_toggle,.top_pc_logo,.pc_navi,.pc_fb_icon,.pc_insta_icon {
+			display: none;
 		}
 
-		nav {
+		.top_sp_logo {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.navi {
 			display: flex;
 			flex-direction: row;
 			justify-content: center;
 
-			.sp_navi { order: 3; }
+			.sp_navi { order: 1; }
 		}
 
 		.sp_navi,.fb_icon,.insta_icon {
@@ -71,10 +89,13 @@ header {
 		.sp_menu_toggle {
 			background: white;
 			width: 180px;
-			border-top: 1px solid $line_color;
-			border-left: 1px solid $line_color;
-			border-right: 1px solid $line_color;
+			margin: 0;
+			padding: 0;
+			border-top: 1px solid $ac_color2;
+			border-left: 1px solid $ac_color2;
+			border-right: 1px solid $ac_color2;
 
+			text-align: left;
 			li {
 				list-style: none;
 				margin: 0;
@@ -83,18 +104,787 @@ header {
 				a {
 					display: block;
 					padding: 8px;
-					border-bottom: 1px solid $line_color;
+					border-bottom: 1px solid $ac_color2;
 				}
 				// .sp_menu_toggle.a  close
 			}
 			//.sp_menu_toggle li  close
 		}
 		// .sp_menu_toggle  close
+		}
+		// max-width:1023px  close
+
+	// headerのPCビュー
+	@media(min-width: 1024px) {
+
+		// PCビューのheader下余白
+		margin-bottom: 40px;
+		display: flex;
+		justify-content: space-between;
+
+		.top_logo {
+			// SP用ロゴは非表示
+			.top_sp_logo { display: none; }
+		}
+
+		// .navi style
+		.navi {
+			display: inline-flex;
+			align-items: flex-end;
+			justify-content: flex-end;
+
+			// SP用のメニュー・アイコンなど非表示
+			.sp_navi,.sp_fb_icon,.sp_insta_icon { display: none; }
+
+			.pc_navi {
+				ul {
+					list-style: none;
+					display: inline-flex;
+					li {
+						margin: 0px 10px;
+					}
+				}
+			}
+			// .pc_navi  close
+
+			.fb_icon,.insta_icon {
+				// 位置合わせ
+				margin-bottom: 10px;
+			}
+			.insta_icon { margin-left: 10px; }
+
+		}
+		// .navi style  close
+
 	}
-	// max-width:767px  close
+	// min-width: 1024px  close
+}
+// .header  close
+
+.contents {
+
+	// サイドバーのPCビュー min-width:1024px
+	@media(min-width: 1024px) {
+
+		display: flex;
+
+		.main {
+			width: 75%;
+			margin-right: 20px;
+		}
+
+		// サイドバー width 3/12(25%) - .mainのmargin-right
+		.sidebar { width: calc(25% - 20px); }
+
+	}
+	// min-width:1024px style  close
+
+
+	//アイキャッチ画像カルーセルエリア
+	#carousel_area {
+		margin: 0 10px;
+		//SPビューに準拠
+		.owl-dots {
+			text-align: left;
+		}
+
+		span {
+			margin: 0;
+			padding: 0;
+			margin-right: 10px;
+			border-radius: 0;
+			width: 40px;
+			height: 2.5px;
+			background: #aaaaaa;
+
+			//dot(bar)にマウスを乗せたときの色変更
+			//activeになったとき20%濃くする
+			&:hover {
+				background: darken(#aaaaaa, 20%);
+			}
+
+		}
+
+		.owl-dot.active {
+			//カルーセルの中でactiveになっているdot(bar)の色変更
+			span {
+				background: #9d1a2d;
+			}
+		}
+
+		@media(min-width: 1024px) { margin: 0; }
+
+	}
+	// #carousel_area  close
+
+	// list.html, products.html
+	// ぱんくずリスト style
+	.bc_list {
+		display: flex;
+		@include fontsz(11);
+		margin: 0 10px;
+		padding: 1em;
+		align-items: center;
+
+		// 文字色
+		color: $ac_color1;
+
+		//ボックスの角を丸める
+		border-radius: 0.5em;
+
+		// ボックス背景色：Photoshopデザインカンプより
+		// 3.4 配色 では指定されていない色なので変数宣言なし
+		background-color: #e8e4da;
+
+		img { max-height: 1em; padding-right: 1em; }
+
+		@media(min-width: 1024px) { margin: 0; }
+
+	}
+
+	// list.html ---->
+	// #image_area  style
+	#image_area {
+		margin: 10px;
+	// 背景画像を横幅100%で高さをきれいに可変表示：レスポンシブ対応
+		// 一応、height: 0 宣言　初期状態で0なら不要
+		height: 0;
+		// padding -> 「自分の親要素の横幅」を基準に縦(上下)方向を%で指定できる
+		// padding-top = 表示画像の高さ ÷ 表示画像の幅 * 100%
+		//             = 170 ÷ 600 * 100%
+		padding-top: 28.33%;
+		background: url("../images/list/cate_image_sp.jpg") 0 0 no-repeat;
+		background-size: contain;
+	}
+
+	// #image_area PCビュー
+	@media(min-width: 1024px) {
+		#image_area {
+			margin: 10px 0;
+			padding-top: 24.28%;
+			background: url("../images/list/cate_image.jpg") 0 0 no-repeat;
+			background-size: contain;
+		}
+	}
+	// #imge_area PCビュー  close
+
+	// products.html ---->
+	// #pro_det_area  style
+	#pro_det_area {
+		background-color: white;
+		margin-top: 15px;
+		padding: 20px 10px;
+
+		#pro_head {
+
+			border-bottom: solid 1px #e3e8cf;
+			margin-bottom: 10px;
+
+			h2 {
+				margin: 0;
+				padding: 0;
+				@include fontsz(14);
+			}
+
+			h4 {
+				@include fontsz(10);
+				color: #a6a6a6;
+				margin: 0.5em 0 2em;
+				padding: 0;
+			}
+
+		}
+
+		#pro_display_img {
+			margin-bottom: 10px;
+			img {
+				// 画像の拡大・縮小調整＋はみ出し防止
+				width: 100%;
+				height: auto;
+				margin: 0 auto;
+			}
+		}
+
+		// #pro_li_img  style
+		#pro_li_img {
+			// 画像を並べたとき、等間隔にするため親要素のmargin-rightをマイナスにしておく
+			margin: 0 -10px 0 0;
+			padding: 0;
+			padding-bottom: 10px;
+			list-style: none;
+			display: flex;
+			flex-wrap: wrap;
+			// justify-content: space-between;
+
+			li {
+				margin-right: 10px;
+				margin-bottom: 10px;
+				// box-sizing: border-box;
+				width: calc(20% - 10px);
+
+				img {
+					width: 100%;
+					height: auto;
+					cursor: pointer;
+					// margin: 0 auto;
+				}
+			}
+
+		}
+		// #pro_li_img style  close
+
+		#pro_colorsize {
+			padding: 20px 0;
+			border-top: solid 1px #e3e8cf;
+
+			table {
+				color: $ac_color1;
+				margin-top: 20px;
+				width: 100%;
+
+				th {
+					height: 3rem;
+					background-color: #f9f9f5;
+					border: solid 1px #e8e4da;
+
+					@include fontsz(12);
+					font-weight: normal;
+					vertical-align: middle;
+				}
+				td {
+					height: 3rem;
+					border: solid 1px #e8e4da;
+
+					@include fontsz(20);
+					color: #e8e4da;
+					vertical-align: middle;
+					text-align: center;
+				}
+			}
+
+		}
+		// #pro_colorsize style  close
+
+		#pro_price {
+			padding: 20px 0;
+			border-top: solid 1px #e3e8cf;
+			border-bottom: solid 1px #e3e8cf;
+
+			display: flex;
+			align-items: baseline;
+
+			img {
+				// imgの最大高さを元画像の高さで指定
+				max-height: 12px;
+			}
+			#kingaku {
+				margin: 0 auto;
+				@include fontsz(14);
+				font-style: italic;
+				color: #e80f66;
+
+				#price_02 {
+					@include fontsz(22);
+				}
+				#price_03 {
+					color: black;
+				}
+			}
+
+		}
+
+		#pro_quantity {
+			padding: 20px 0;
+			border-bottom: solid 1px #e3e8cf;
+
+			display: flex;
+			align-items: center;
+
+			img { max-height: 15px; }
+
+			#qtt_input {
+				width: 140px;
+				//高さを直前のPRICEに合わせる
+				@include fontsz(22);
+				height: 1em;
+				margin: 0 auto;
+				padding: 0.1em 0;
+				border: solid 1px #e3e8cf;
+			}
+		}
+
+		#add_cart_btn {
+			padding: 10px 0;
+
+			img { display:block; margin: 0 auto; }
+		}
+
+		#pro_desc_head {
+			border-bottom: solid 1px $ac_color1;
+			padding-top: 20px;
+			h2 {
+				color: $ac_color1;
+				@include fontsz(16);
+			}
+		}
+
+		#pro_desc {
+			h2 {
+				color: $ac_color1;
+				@include fontsz(16);
+			}
+			p { @include fontsz(14); }
+
+			table {
+				color: $ac_color1;
+				margin-top: 10px;
+				width: 100%;
+
+				th {
+					padding: 1em;
+					background-color: #f9f9f5;
+					border: solid 1px #e8e4da;
+					@include fontsz(12);
+					font-weight: normal;
+				}
+				td {
+					padding: 1em;
+					border: solid 1px #e8e4da;
+					@include fontsz(12);
+				}
+			}
+		}
+
+		// #pro_det_area PCビュー
+		@media(min-width: 1024px) {
+
+			margin-top: 10px;
+			padding: 40px 60px 60px;
+
+			// 5/7領域でスライドショー & 2/7領域で2column x 5row
+			#pro_display {
+				display: flex;
+				justify-content: space-between;
+
+				padding: 20px 0;
+
+				border-bottom: solid 1px #e3e8cf;
+
+				#pro_display_img {
+					width: calc((100% / 7) * 5);
+					margin: 0 0 10px 0;
+					padding: 0;
+				}
+				#pro_li_img {
+					width: calc((100% / 7) * 2);
+					margin: 0 -10px 0 0;
+					padding: 0;
+					li {
+						width: calc(50% - 10px);
+						height: auto;
+					}
+				}
+			}
+
+			// PRICE ～ Add TO CARTボタンの整列
+			#pro_cont {
+				display: flex;
+				flex-flow: row wrap;
+				justify-content: space-between;
+
+				.flex_item {
+					width: 50%;
+				}
+				// #pro_price { }
+				#pro_quantity{
+					order: 1;
+					border-bottom: 0;
+				}
+				// #add_cart_btn{ }
+
+			}
+
+			#pro_desc_head { border-top: solid 1px #e3e8cf; }
+
+		}
+
+	}
+
+
+	// 上部イメージ画像(カルーセル含む)よりも下の領域
+	.section {
+		margin: 0 10px;
+		// NEW ITEMS 以下のエリアにてSPビューで非表示
+		.pc_title { display: none; }
+		// NEW ITEMS 以下のエリアにてSPビューで表示するタイトルバー
+		.title {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin: 30px 0px;
+		}
+
+		.items_col {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			.item {
+				background-color: white;
+				padding: 10px;
+				border: 1px solid $bg_color;
+				box-sizing: border-box;
+				width: calc(100% / 2);
+				max-width: calc(100% / 2);
+				text-align: center;
+				img {
+					// 画像の拡大・縮小調整＋はみ出し防止
+					width: auto;
+					height: auto;
+					max-width: 100%;
+					max-height: 100%;
+					margin: 0 auto;
+				}
+				p {
+					text-align: left;
+				}
+			}
+		}
+		// 汎用 .items_col style  close
+
+
+		// #page_feed_btn style
+		#page_feed_btn {
+			display: flex;
+			justify-content: space-between;
+
+			a { text-decoration:none; }
+
+			p {
+				@include fontsz(14);
+				color: white;
+				background-color: $ac_color1;
+				width: 120px;
+				height: 40px;
+				text-align: center;
+				line-height: 40px;
+				margin-bottom: 0;
+			}
+		}
+		// #page_feed_btn style  close
+
+
+		#shopping_guide {
+			display: flex;
+			flex-direction: column;
+
+			h2, h3 { color: $ac_color1; }
+
+			h2 { @include fontsz(16); }
+
+			h3 { @include fontsz(12); }
+
+			#otodoke, #kessai {
+				box-sizing:border-box;
+				background-color: white;
+				padding: 0 1.6rem 1.6rem;
+				margin-bottom: 10px;
+				img {
+					max-width: 100%;
+					height: auto;
+				}
+			}
+		}
+
+		//PCビュー
+		@media(min-width: 1024px) {
+			margin: 0;
+
+			.sp_title { display: none; }
+
+			.pc_title {
+				display: block;
+
+				// ：htmlファイルにてimgタグを利用する場合：
+				// margin: 0 10px;
+			  // max-width: 100%;
+
+			  // .pc_titleブロックの高さ
+			  // ＝引用実画像の height より少し高めに設定
+				height: 20px;
+				width: 100%;
+				background-size: cover;
+				background-position: center center;
+			}
+
+			#tt_nitems {
+				.pc_title { background-image: url("../images/top/title_newitems.png"); }
+			}
+
+			#tt_pitems {
+				.pc_title { background-image: url("../images/top/title_popular.png"); }
+			}
+
+			#tt_guide {
+				.pc_title { background-image: url("../images/top/title_guide.png"); }
+			}
+
+			#tt_r_pro {
+				.pc_title { background-image: url("../images/list/recent_pro_pc.png"); }
+			}
+
+			.items_col {
+				.item {
+					width: calc(100% / 3);
+					max-width: calc(100% / 3);
+				}
+			}
+
+			#shopping_guide {
+				flex-direction: row;
+				#otodoke, #kessai {
+					// PCビューのとき SHOPPING GUIDE -> 2カラム
+					width: 50%;
+					margin: 0;
+				}
+				#otodoke { border-right: solid 2.5px $bg_color; }
+				#kessai { border-left: solid 2.5px $bg_color; }
+			}
+
+		}
+		// min-width: 1024px(PCビュー) style  close
+	}
+	// .section style  close
+
+
+	// サイドバー style（
+	.sidebar {
+		margin: 0 10px;
+		//サイドバー flex で表示。並ぶ向きは column
+		display: flex;
+		flex-direction: column;
+
+		#item_search {
+			box-sizing: border-box;
+			background: white;
+			padding: 20px;
+			@include fontsz(12);
+
+			#is_head { margin-bottom: 10px; }
+
+			#search_box {
+				display: flex;
+				color: $serch_char_color;
+				background-color: $serch_bg_color;
+				box-sizing: border-box;
+				justify-content: space-between;
+				@include fontsz(11);
+
+				p {
+					font-style: italic;
+					margin: 0.6em 1em;
+				}
+				img {
+					margin: 0.6em 1em;
+				}
+			}
+			// #search_box style  close
+		}
+		// #item_search style  close
+
+		#page_link {
+			display: flex;
+			margin-top: 10px;
+			@include fontsz(12);
+			background: $ac_color1;
+			padding: 1.5em;
+			justify-content: space-between;
+			align-items: center;
+		}
+		// #page_link style  close
+
+		#categories {
+			display: flex;
+			flex-direction: column;
+			margin-top: 10px;
+			@include fontsz(12);
+
+			.catego_head {
+				display: flex;
+				background: $ac_color1;
+				padding: 1.5em;
+				justify-content: space-between;
+			}
+
+			ul {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+
+				li {
+					display: flex;
+					background: white;
+					border-bottom: solid 1px $bg_color;
+					@include fontsz(12);
+					padding: 1.5em;
+					justify-content: space-between;
+					align-items: center;
+					img { max-height: 1em; }
+				}
+				// li  close
+			}
+			// ul  close
+		}
+		// #categories style  close
+
+		#about {
+			display: flex;
+			flex-direction: column;
+			margin-top: 10px;
+			@include fontsz(12);
+
+			#about_head {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				background: $ac_color1;
+				padding: 1.5em;
+			}
+
+			#about_cont {
+				padding: 10px;
+				background: white;
+				text-align: center;
+				p { text-align: left; }
+				img {
+					max-width: 100%;
+					max-height: 100%;
+					width: auto;
+					height: auto;
+				}
+			}
+		}
+		// #about style  close
+
+		#shop_info {
+			display: flex;
+			flex-direction: column;
+			margin-top: 10px;
+			@include fontsz(12);
+
+			#s_i_head {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				background: $ac_color1;
+				padding: 1.5em;
+			}
+
+			#s_i_cont {
+				padding: 10px;
+				background: white;
+				text-align: center;
+				p { text-align: left; }
+				img {
+					max-width: 100%;
+					max-height: 100%;
+					width: auto;
+					height: auto;
+				}
+			}
+		}
+		// #shop_info style  close
+
+		//SPビュー特有の表示
+		@media(max-width: 1023px) {
+
+			// SPビューのとき、ITEM SEARCHの見出しを非表示
+			#is_head { display: none; }
+
+			#about {
+				#about_cont {
+					display: flex;
+					#ab_left {
+						width: 50%;
+						margin-right:10px;
+					}
+					#ab_right {
+						width: 50%;
+						text-align: left;
+					}
+				}
+			}
+
+			#shop_info {
+				#s_i_cont {
+					display: flex;
+					#s_i_c_left {
+						width: 50%;
+						margin-right:10px;
+					}
+					#s_i_c_right {
+						width: 50%;
+						text-align: left;
+					}
+				}
+			}
+		}
+		//SPビュー style  close
+
+		@media(min-width: 1024px) { margin: 0; }
+
+	}
+	// .sidebar style  close
 
 }
-// header  close
+// .contents  close
 
 
+// footer
+footer {
 
+	margin: 0 10px;
+
+	#pagetop {
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		// footer の区切りライン
+		padding: 30px 0;
+		border-bottom: 1px solid $ac_color1;
+
+
+		@include fontsz(12);
+
+		//PCビュー
+		@media(min-width: 1024px) { justify-content: flex-end; }
+	}
+	// #pagetop style  close
+
+  .pc_foot { display: none; }
+
+	p {
+		margin: 0;
+		padding: 15px 0;
+		text-align: center;
+		@include fontsz(11);
+	}
+
+	h6 {
+		margin: 0;
+		text-align: center;
+		@include fontsz(10);
+		color: #b8b4ac;
+	}
+
+	//PCビュー
+	@media(min-width: 1024px) {
+		margin: 0;
+		.sp_foot { display: none; }
+		.pc_foot { display: block; }
+
+		p { @include fontsz(12); }
+	}
+
+}
