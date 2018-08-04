@@ -154,8 +154,18 @@
 								</tr>
 								<tr>
 									<th>サイズ</th>
-									<td>&#9633;</td>
-									<td>&#9633;</td>
+									<td>
+										<label>
+											<input type="checkbox" class="c_box">
+											<span class="c_icon"></span>
+										</label>
+									</td>
+									<td>
+										<label>
+											<input type="checkbox" class="c_box">
+											<span class="c_icon"></span>
+										</label>
+									</td>
 								</tr>
 							</table>
 						</div>
@@ -164,7 +174,7 @@
 						<!-- PCビューで2カラムにするFlexコンテナ-->
 						<div id="pro_cont">
 							<!-- price -->
-							<div class="flex_item" id="pro_price">
+							<div id="pro_price">
 								<img src="images/products/title_price.png" alt="">
 								<div id="kingaku">
 									<span id="price_01">&yen;</span>
@@ -175,16 +185,16 @@
 							<!-- price  close -->
 
 							<!-- Quantity -->
-							<div class="flex_item" id="pro_quantity">
+							<div id="pro_quantity">
 								<img src="images/products/title_quantity.png" alt="">
 								<!-- 個数の入力枠 cssで装飾 -->
-								<div id="qtt_input"></div>
+									<input id="qtt_input" type="number" name="quantity" max="99" min="1">
 							</div>
 							<!-- Quantity  close -->
 
 							<!-- Add to cart -->
-							<div class="flex_item" id="add_cart_btn">
-								<img src="images/products/add_to_cart.png" alt="">
+							<div id="add_cart_btn">
+								<a href="#"><img src="images/products/add_to_cart.png" alt=""></a>
 							</div>
 						</div>
 						<!-- PCビューで2カラムにするFlexコンテナ close -->
@@ -284,10 +294,12 @@
 						<div id="is_head">
 							<img src="images/top/itemsearch.png" alt="">
 						</div>
-						<div id="search_box">
-							<p>Search..</p>
-							<img src="images/top/search_icon.png" alt="">
-						</div>
+						<!-- inputタグには、検索フォーム用のtype="search"がHTML5から用意された -->
+						<form id="sform" action="#">
+							<input id="sbox" type="text" placeholder="Search.."><!--
+							/input間で改行するときは、コメントアウトが必須になる/
+							--><input id="sbtn" type="submit" value="">
+						</form>
 					</div>
 					<!-- #item_search  close -->
 
