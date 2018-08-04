@@ -357,11 +357,50 @@ body {
 					height: 3rem;
 					border: solid 1px #e8e4da;
 
-					@include fontsz(20);
+					@include fontsz(12);
 					color: #e8e4da;
 					vertical-align: middle;
 					text-align: center;
+
+					// チェックボックスの装飾
+					.c_box { display: none; }
+					.c_icon {
+						position: relative;
+						cursor: pointer;
+						padding-left: 10px;
+						margin-right: 10px;
+						// c_icon は spanタグのinline要素なので上下のpadding, marginは意味がない
+						// いろいろleft, rightや数値を変更して試したが、
+						// 今回のケースだと、 padding-left: 10px; marginright:10px; により
+						// <td>要素に対する宣言 vertical-align: middle と text-align:center
+						// がきれいに働き、中央寄せにできた
+					}
+					.c_icon::before {
+						// チェックボックスの枠
+						content: "";
+						display: block;
+						position: absolute;
+						top: 0; left: 0;
+						width: 15px;
+						height: 15px;
+						border: 1px solid #e8e4da;
+					}
+					// チェックボックス右に見出しのテキストがあるとき、チェック後文字色変更したい場合
+					// .c_box:checked + .c_icon { color: $ac_color1; }
+					.c_box:checked + .c_icon::after {
+						// チェックマーク：色は$ac_color1　borderで線を表現
+						content: "";
+						display: block;
+						position: absolute;
+						top: -5px; left: 5px;
+						width: 7px;
+						height: 14px;
+						transform: rotate(40deg);
+						border-bottom: 3px solid $ac_color1;
+						border-right: 3px solid $ac_color1;
+					}
 				}
+				// td style close
 			}
 
 		}
@@ -396,7 +435,8 @@ body {
 		}
 
 		#pro_quantity {
-			padding: 20px 0;
+			padding: 15px 0;
+			border-top: solid 1px white;
 			border-bottom: solid 1px #e3e8cf;
 
 			display: flex;
@@ -406,19 +446,17 @@ body {
 
 			#qtt_input {
 				width: 140px;
-				//高さを直前のPRICEに合わせる
-				@include fontsz(22);
-				height: 1em;
+				@include fontsz(14);
+				height: 2.2rem;
 				margin: 0 auto;
-				padding: 0.1em 0;
+				padding: 6px 0;
 				border: solid 1px #e3e8cf;
 			}
 		}
 
 		#add_cart_btn {
-			padding: 10px 0;
-
-			img { display:block; margin: 0 auto; }
+			padding-top: 20px;
+			text-align: center;
 		}
 
 		#pro_desc_head {
@@ -494,15 +532,18 @@ body {
 				flex-flow: row wrap;
 				justify-content: space-between;
 
-				.flex_item {
-					width: 50%;
-				}
-				// #pro_price { }
+				#pro_price { width: calc((100% / 7) * 4); }
 				#pro_quantity{
+					width: calc((100% / 7) * 4);
 					order: 1;
 					border-bottom: 0;
 				}
-				// #add_cart_btn{ }
+				#add_cart_btn{
+					padding: 0;
+					width: calc((100% / 7) * 3);
+					// PCビューのとき、Add TO CARTボタン右寄せ
+					text-align: right;
+				}
 
 			}
 
@@ -674,23 +715,39 @@ body {
 
 			#is_head { margin-bottom: 10px; }
 
-			#search_box {
-				display: flex;
-				color: $serch_char_color;
-				background-color: $serch_bg_color;
-				box-sizing: border-box;
-				justify-content: space-between;
+			// 検索フォーム style
+			#sform {
 				@include fontsz(11);
+				width: 100%;
+				height: 30px;
+				border: 0;
 
-				p {
+				input {
+					color: $serch_char_color;
+					background-color: $serch_bg_color;
+					vertical-align: middle;
+					// -> top でも同じ。初期値（baseline）だとずれる
+					margin: 0px;
+					height: 100%;
+					box-sizing: border-box;
 					font-style: italic;
-					margin: 0.6em 1em;
 				}
-				img {
-					margin: 0.6em 1em;
-				}
+				input:focus { color: black; font-style: normal; }
 			}
-			// #search_box style  close
+			#sbox {
+				border: none;
+				width: calc(100% - 30px);
+				padding-left: 1rem;
+			}
+			#sbtn {
+				width: 30px;
+				border: none;
+				background-image: url("../images/top/search_icon.png");
+				background-position: center;
+				background-size: auto 1.5em;
+				background-repeat: no-repeat;
+			}
+			// 検索フォーム style  close
 		}
 		// #item_search style  close
 
